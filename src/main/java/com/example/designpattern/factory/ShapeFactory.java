@@ -36,7 +36,20 @@ public class ShapeFactory {
         return shape;
     }
 
+    //通过反射去获取
+    public static  <T> T getClass(Class<? extends T> shape) {
+        T obj = null;
+        try {
+            obj = (T) Class.forName(shape.getName()).newInstance();
+            obj = shape.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
     public static void main(String[] args) {
+        ShapeFactory.getClass(Rectangle.class);
         ShapeFactory shapeFactory = new ShapeFactory();
 
         //获取 Circle 的对象，并调用它的 draw 方法
